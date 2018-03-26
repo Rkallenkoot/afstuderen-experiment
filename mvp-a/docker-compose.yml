@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+     - "80:8080"
+    environment:
+      DOCUMENT_ROOT: "/app/public"
+      SKIP_LOCKDOWN_DOCUMENT_ROOT: "True"
+    depends_on:
+      - mysql
+      - redis
+    volumes:
+     - .:/app
+
+  node:
+    image: node-alpine
+    volumes:
+     - .:/var/www/html
+
+  mysql:
+    image: mysql:5.7
+    ports:
+     - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "pass"
+      MYSQL_DATABASE: "db"
+      MYSQL_USER: "user"
+      MYSQL_PASSWORD: "db"
+    volumes:
+     - ./docker/mysql/conf.d:/etc/mysql/conf.d
+     - ./docker/mysql/logs:/var/log/mysql
+
+  redis:
+    image: redis:alpine
+    volumes:
+     - ./docker/redis:/data
+

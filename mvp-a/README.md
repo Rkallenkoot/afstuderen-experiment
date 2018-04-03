@@ -64,7 +64,7 @@ Querying the language for each translatable entity is possible in the following 
 #### TODO
 
 - [x] Book model tests
-- [ ] Publisher model tests
+- [x] Publisher model tests
 - [ ] Category model tests
 
 - [ ] UserContext category API tests

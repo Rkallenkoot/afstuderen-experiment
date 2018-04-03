@@ -27,6 +27,4 @@ class PublisherTest extends TestCase
 
         $this->assertInstanceOf(HasMany::class, $publisher->books());
     }
-
-
 }

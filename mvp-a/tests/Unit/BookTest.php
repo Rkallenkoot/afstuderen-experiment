@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class BookTest extends TestCase
 {
-
     use RefreshDatabase, WithFaker;
 
     /** @test */
@@ -39,7 +38,4 @@ class BookTest extends TestCase
         $this->assertNotNull($book->categories);
         $this->assertInstanceOf(BelongsToMany::class, $book->categories());
     }
-
-
-
 }

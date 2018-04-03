@@ -10,3 +10,11 @@ https://github.com/spatie/laravel-translatable
 ## MVP B
 Using laravel-translatable by dimsav
 https://github.com/dimsav/laravel-translatable
+
+
+## Database benchmarks
+https://dev.mysql.com/doc/refman/5.5/en/custom-benchmarks.html
+
+https://dev.mysql.com/doc/refman/5.5/en/mysqlslap.html
+
+https://tools.ietf.org/html/rfc7231#section-3.1.3.2

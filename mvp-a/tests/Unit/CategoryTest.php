@@ -29,7 +29,6 @@ class CategoryTest extends TestCase
         $this->assertInstanceOf(BelongsToMany::class, $category->books());
     }
 
-
     /** @test */
     public function should_have_parent_relationship()
     {
@@ -37,7 +36,6 @@ class CategoryTest extends TestCase
 
         $this->assertInstanceOf(BelongsTo::class, $category->parent());
     }
-
 
     /** @test */
     public function should_have_children_relationship()

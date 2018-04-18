@@ -1,4 +1,4 @@
-FROM gcr.io/google-appengine/php:2018-03-20-14-43
+FROM gcr.io/google-appengine/php:2018-04-16-14-10
 
 # Add our NGINX and php.ini config
 ENV DOCUMENT_ROOT=${APP_DIR}/web

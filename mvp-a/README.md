@@ -67,10 +67,6 @@ Querying the language for each translatable entity is possible in the following 
 - [x] Publisher model tests
 - [x] Category model tests
 
-- [ ] UserContext category API tests
-- [ ] UserContext book API tests
-- [ ] UserContext publisher API tests
-
 - [x] Category migration
 - [x] Publisher migration
 - [x] Book migration
@@ -80,11 +76,19 @@ Querying the language for each translatable entity is possible in the following 
 - [x] Publisher factory
 - [x] Book factory
 
-- [ ] Category Resource
-- [ ] Publisher Resource
-- [ ] Book Resource
+- [x] Category Resource
+- [x] Publisher Resource
+- [x] Book Resource
 
 - [ ] Seeders with test data
+
+- [ ] UserContext category API tests
+- [ ] UserContext book API tests
+- [ ] UserContext publisher API tests
+
+- [ ] Query params category API tests
+- [ ] Query params book API tests
+- [ ] Query params publisher API tests
 
 - [ ] API routes category
 - [ ] API routes book

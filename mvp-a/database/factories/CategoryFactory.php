@@ -12,7 +12,7 @@ $factory->define(Category::class, function (Faker $faker) {
 
 $factory->state(Category::class, 'parent', function (Faker $faker) {
     return [
-        'name' => $faker,
+        'name' => $faker->sentence(2),
         'image_url' => $faker->imageUrl
     ];
 });

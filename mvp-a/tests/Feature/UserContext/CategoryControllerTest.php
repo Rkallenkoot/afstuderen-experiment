@@ -15,36 +15,54 @@ class CategoryControllerTest extends TestCase
     /** @test */
     public function should_list_parent_categories()
     {
-        $categories = factory(Category::class, 15)->states('parent')->create();
+        $categories = factory(Category::class, 15)->create();
+        $categories->each(function($c) {
+            $c->children()->saveMany(factory(Category::class,5)->make());
+        });
 
-        $this->json(route('category.index'))
+        $this->json('GET', route('userContext.category.index'))
             ->assertStatus(200)
             ->assertJsonStructure([
                 'data' => [
                     [
                         'id',
                         'name',
-                        'parent_id',
+                        'links' => [
+                            'children',
+                            'books',
+                        ],
                     ],
                 ],
+                'links' => [
+                ],
                 'meta' => [
-                    'pagination' => []
+                    'current_page',
+                    'last_page',
+                    'from',
+                    'to',
+                    'path',
+                    'per_page',
+                    'total',
                 ]
             ]);
     }
 
+    /** @test */
     public function should_show_category()
     {
         $category = factory(Category::class)->create();
 
-        $this->json('GET', route('category.show', $category))
+        $res = $this->json('GET', route('userContext.category.show', $category->id))
             ->assertStatus(200)
             ->assertJsonStructure([
                 'data' => [
                     'id',
                     'name',
-                    'parent_id',
                     'image_url',
+                    'links' => [
+                        'children',
+                        'books',
+                    ],
                 ],
             ]);
     }

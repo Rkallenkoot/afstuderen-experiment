@@ -19,25 +19,23 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::prefix('userContext')
+    ->name('userContext.')
     ->namespace('UserContext')
     ->group(function() {
 
         Route::prefix('category')
             ->group(function() {
 
-                Route::get('/')
-                    ->uses('CategoryController@index')
+                Route::get('/', 'CategoryController@index')
                     ->name('category.index');
 
-                Route::get('/{id}')
-                    ->uses('CategoryController@show')
+                Route::get('/{category}', 'CategoryController@show')
                     ->name('category.show');
 
-                Route::get('/{id}/books')
-                    ->uses('CategoryController@books')
+                Route::get('/{category}/books', 'CategoryController@books')
                     ->name('category.books');
-                Route::get('/{id}/children')
-                    ->uses('CategoryController@children')
+
+                Route::get('/{category}/children', 'CategoryController@children')
                     ->name('category.children');
 
             });

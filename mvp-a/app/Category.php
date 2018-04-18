@@ -18,11 +18,17 @@ class Category extends Model
 
     public function children()
     {
-        return $this->hasMany(Category::class);
+        return $this->hasMany(Category::class, 'parent_id');
     }
 
     public function books()
     {
         return $this->belongsToMany(Book::class);
     }
+
+    public function isParent()
+    {
+        return $this->parent_id !== null;
+    }
+
 }

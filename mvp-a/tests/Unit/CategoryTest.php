@@ -44,4 +44,23 @@ class CategoryTest extends TestCase
 
         $this->assertInstanceOf(HasMany::class, $category->children());
     }
+
+    /** @test */
+    public function should_be_parent()
+    {
+        $category = new Category;
+        $category->parent_id = 5;
+
+        $this->assertTrue($category->isParent());
+    }
+
+    /** @test */
+    public function should_not_be_parent()
+    {
+        $category = new Category;
+        $category->parent_id = null;
+
+        $this->assertFalse($category->isParent());
+    }
+
 }

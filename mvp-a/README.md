@@ -51,7 +51,7 @@ Entities that are used to simulate the environment of the real application
 |-----------------------------|------------------------------|---------------------------|
 | /api/category               | /api/book                    | /api/publisher            |
 | /api/category/{id}          | /api/book/{id}               | /api/publisher/{id}       |
-| /api/category/{id}/books    | /api/book/{id}/categories    | /api/publisher/{id}/books |
+| /api/category/{id}/books    | /api/book/{id}/categories    |                           |
 | /api/category/{id}/children |                              |                           |
 
 #### API responses per language

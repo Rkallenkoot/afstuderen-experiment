@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\UserContext;
+namespace App\Http\Controllers\QueryParams;
 
 use App\Category;
 use App\Http\Controllers\Controller;
@@ -27,12 +27,6 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return new CategoryResource($category);
-    }
-
-    public function books(Category $category)
-    {
-        $category->load('books');
         return CategoryResource::make($category);
     }
 
@@ -42,5 +36,10 @@ class CategoryController extends Controller
         return CategoryResource::make($category);
     }
 
+    public function books(Category $category)
+    {
+        $category->load('books');
+        return CategoryResource::make($category);
+    }
 
 }

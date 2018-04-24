@@ -1,8 +1,7 @@
 <?php
 
-namespace Tests\Feature\UserContext;
+namespace Tests\Feature\QueryParams;
 
-use App\Book;
 use App\Publisher;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -17,7 +16,7 @@ class PublisherControllerTest extends TestCase
     {
         factory(Publisher::class, 15)->create();
 
-        $this->json('GET', route('userContext.publisher.index'))
+        $this->json('GET', route('queryParams.publisher.index'))
             ->assertStatus(200)
             ->assertJsonStructure([
                 'data' => [
@@ -39,7 +38,7 @@ class PublisherControllerTest extends TestCase
     {
         $p = factory(Publisher::class)->create();
 
-        $this->json('GET', route('userContext.publisher.show', $p))
+        $this->json('GET', route('queryParams.publisher.show', $p))
             ->assertStatus(200)
             ->assertJsonStructure([
                 'data' => [
@@ -55,9 +54,7 @@ class PublisherControllerTest extends TestCase
     /** @test */
     public function show_should_404_when_publisher_doesnt_exist()
     {
-        $this->json('GET', route('userContext.publisher.show', 10000000000000000))
+        $this->json('GET', route('queryParams.publisher.show', 10000000000000000))
             ->assertStatus(404);
     }
-
-
 }

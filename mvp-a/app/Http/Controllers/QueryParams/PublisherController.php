@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\UserContext;
+namespace App\Http\Controllers\QueryParams;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PublisherResource;
@@ -29,12 +29,5 @@ class PublisherController extends Controller
     {
         return PublisherResource::make($publisher);
     }
-
-    public function books(Publisher $publisher)
-    {
-        $publisher->load('books');
-        return PublisherResource::make($publisher);
-    }
-
 
 }

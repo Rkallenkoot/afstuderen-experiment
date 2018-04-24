@@ -20,7 +20,7 @@ class BookResource extends JsonResource
             'description' => $this->description,
             'isbn' => $this->isbn,
             'eISBN' => $this->eISBN,
-            'publisher_id' => $this->published_id,
+            'publisher_id' => $this->publisher_id,
             'categories' => CategoryResource::collection($this->whenLoaded('categories')),
             'publisher' => new PublisherResource($this->whenLoaded('publisher')),
         ];

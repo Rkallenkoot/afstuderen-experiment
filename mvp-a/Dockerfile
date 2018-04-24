@@ -1,8 +1,17 @@
-FROM gcr.io/google-appengine/php:2018-04-16-14-10
+FROM gcr.io/google-appengine/php72
 
-# Add our NGINX and php.ini config
-ENV DOCUMENT_ROOT=${APP_DIR}/web
+# Allow customizing some composer flags
+ARG COMPOSER_FLAGS='--no-scripts --no-dev --prefer-dist'
+ENV COMPOSER_FLAGS=${COMPOSER_FLAGS}
 
-# Workaround for AUFS-related permission issue:
-# See https://github.com/docker/docker/issues/783#issuecomment-56013588
-RUN cp -R ${APP_DIR} ${APP_DIR}-copy; rm -r ${APP_DIR}; mv ${APP_DIR}-copy ${APP_DIR}; chmod -R 550 ${APP_DIR}; chown -R root.www-data ${APP_DIR}
+# Copy the app and change the owner
+COPY . $APP_DIR
+RUN chown -R www-data.www-data $APP_DIR
+
+RUN /build-scripts/composer.sh
+
+ENV DOCUMENT_ROOT=${APP_DIR}/public
+
+# Make the app readable by www-data
+# RUN chown -R www-data.www-data $APP_DIR
+RUN chmod -R 550 $APP_DIR

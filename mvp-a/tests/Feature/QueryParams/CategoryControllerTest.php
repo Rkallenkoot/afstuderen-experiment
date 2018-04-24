@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\UserContext;
+namespace Tests\Feature\QueryParams;
 
 use App\Book;
 use App\Category;
@@ -20,7 +20,7 @@ class CategoryControllerTest extends TestCase
             $c->children()->saveMany(factory(Category::class,5)->make());
         });
 
-        $this->json('GET', route('userContext.category.index'))
+        $this->json('GET', route('queryParams.category.index'))
             ->assertStatus(200)
             ->assertJsonStructure([
                 'data' => [
@@ -50,7 +50,7 @@ class CategoryControllerTest extends TestCase
     {
         $category = factory(Category::class)->create();
 
-        $res = $this->json('GET', route('userContext.category.show', $category->id))
+        $this->json('GET', route('queryParams.category.show', $category->id))
             ->assertStatus(200)
             ->assertJsonStructure([
                 'data' => [
@@ -68,7 +68,7 @@ class CategoryControllerTest extends TestCase
     /** @test */
     public function should_404_when_category_doenst_exist()
     {
-        $this->json('GET', route('userContext.category.show', -1))
+        $this->json('GET', route('queryParams.category.show', -1))
             ->assertStatus(404);
     }
 
@@ -78,7 +78,7 @@ class CategoryControllerTest extends TestCase
         $c = factory(Category::class)->create();
         $c->children()->saveMany(factory(Category::class, 5)->make());
 
-        $this->json('GET', route('userContext.category.children', $c))
+        $this->json('GET', route('queryParams.category.children', $c))
             ->assertStatus(200)
             ->assertJsonStructure([
                 'data' => [
@@ -98,7 +98,7 @@ class CategoryControllerTest extends TestCase
         $c = factory(Category::class)->create();
         $c->books()->saveMany(factory(Book::class, 20)->make());
 
-        $this->json('GET', route('userContext.category.books', $c))
+        $this->json('GET', route('queryParams.category.books', $c))
             ->assertStatus(200)
             ->assertJsonStructure([
                 'data' => [
@@ -114,5 +114,4 @@ class CategoryControllerTest extends TestCase
                 ],
             ]);
     }
-
 }

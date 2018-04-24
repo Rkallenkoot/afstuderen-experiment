@@ -18,6 +18,9 @@ class PublisherResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'books' => BookResource::collection($this->whenLoaded('books')),
+            'links' => [
+                'books' => route('userContext.publisher.books', $this->id),
+            ],
         ];
     }
 }

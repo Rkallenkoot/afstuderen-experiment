@@ -15,6 +15,7 @@ services:
       - mysql
       - redis
     volumes:
+     - ~/.composer/cache:/opt/composer/cache
      - .:/app
 
   node:

@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+     - "81:8080"
+    environment:
+      WHITELIST_FUNCTIONS: "exec"
+      DOCUMENT_ROOT: "/app/public"
+      SKIP_LOCKDOWN_DOCUMENT_ROOT: "True"
+    depends_on:
+      - mysql
+      - redis
+    volumes:
+     - ~/.composer/cache:/opt/composer/cache
+     - .:/app
+
+  node:
+    image: node:10-alpine
+    working_dir: /var/www/html
+    volumes:
+     - .:/var/www/html
+
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: "pass"
+      MYSQL_DATABASE: "db"
+      MYSQL_USER: "user"
+      MYSQL_PASSWORD: "db"
+    volumes:
+     - ./docker/mysql/conf.d:/etc/mysql/conf.d
+     - ./docker/mysql/logs:/var/log/mysql
+
+  redis:
+    image: redis:alpine
+    volumes:
+     - ./docker/redis:/data
+

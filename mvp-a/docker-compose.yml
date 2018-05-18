@@ -19,7 +19,7 @@ services:
      - .:/app
 
   node:
-    image: node:8-alpine
+    image: node:10-alpine
     working_dir: /var/www/html
     volumes:
      - .:/var/www/html

@@ -26,6 +26,11 @@ class Category extends Model
         return $this->belongsToMany(Book::class);
     }
 
+    public function scopeChildCategories($query)
+    {
+        return $query->whereNotNull('parent_id');
+    }
+
     public function isParent()
     {
         return $this->parent_id !== null;

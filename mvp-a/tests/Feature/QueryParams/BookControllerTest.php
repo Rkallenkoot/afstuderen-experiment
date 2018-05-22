@@ -3,6 +3,7 @@
 namespace Tests\Feature\QueryParams;
 
 use App\Book;
+use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -56,6 +57,65 @@ class BookControllerTest extends TestCase
     {
         $this->json('GET', route('queryParams.book.show', -1))
             ->assertStatus(404);
+    }
+
+    /** @test */
+    public function should_return_books_in_specified_locale()
+    {
+        $book = factory(Book::class)->create([
+            'title' => 'Nice Book',
+            'description' => 'Very nice book',
+        ]);
+        app()->setLocale('nl');
+        $book->update([
+            'title' => 'Mooi boek',
+            'description' => 'Heel mooi boek',
+        ]);
+
+        $res = $this->json('GET', route('queryParams.book.show', [
+                'book'=> $book->id,
+                'locale' => 'en',
+            ]))
+            ->assertStatus(200)
+            ->assertJsonStructure([
+                'data' => [
+                    'id',
+                    'title',
+                    'description',
+                    'isbn',
+                    'eISBN',
+                ],
+            ])->json();
+        $this->assertEquals('Nice Book', $res['data']['title']);
+        $this->assertEquals('Very nice book', $res['data']['description']);
+    }
+
+    /** @test */
+    public function should_fallback_to_english_when_locale_not_available()
+    {
+        $book = factory(Book::class)->create([
+            'title' => 'Nice Book',
+            'description' => 'Very nice book',
+        ]);
+        $book->forgetTranslation('title', 'nl');
+        $book->forgetTranslation('description', 'nl');
+
+        $res = $this->json('GET', route('queryParams.book.show', [
+                'book' => $book->id,
+                'locale' => 'nl',
+            ]))
+            ->assertStatus(200)
+            ->assertJsonStructure([
+                'data' => [
+                    'id',
+                    'title',
+                    'description',
+                    'isbn',
+                    'eISBN',
+                ],
+            ])->json();
+        $this->assertEquals('Nice Book', $res['data']['title']);
+        $this->assertEquals('Very nice book', $res['data']['description']);
     }
 
 }

@@ -6,8 +6,14 @@ use Faker\Generator as Faker;
 
 $factory->define(Book::class, function (Faker $faker) {
     return [
-        'title' => $faker->sentence,
-        'description' => $faker->sentences(15, true),
+        'title' => [
+            'nl' => 'nl:'.$faker->sentence,
+            'en' => 'en:'.$faker->sentence,
+        ],
+        'description' => [
+            'nl' => 'nl:'.$faker->sentences(15, true),
+            'en' => 'en:'.$faker->sentences(15, true),
+        ],
         'isbn' => $faker->isbn13,
         'eISBN' => $faker->isbn13,
         'publisher_id' => function() {

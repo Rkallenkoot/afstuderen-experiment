@@ -20,6 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::prefix('queryParams')
     ->name('queryParams.')
     ->namespace('QueryParams')
+    ->middleware(['queryParamsLocale'])
     ->group(function() {
 
         Route::prefix('book')
@@ -57,6 +58,7 @@ Route::prefix('queryParams')
 Route::prefix('userContext')
     ->name('userContext.')
     ->namespace('UserContext')
+    ->middleware(['userContextLocale'])
     ->group(function() {
 
         Route::prefix('publisher')

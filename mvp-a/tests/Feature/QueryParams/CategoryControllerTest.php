@@ -93,6 +93,30 @@ class CategoryControllerTest extends TestCase
     }
 
     /** @test */
+    public function should_show_category_based_on_query_param_locale()
+    {
+        $category = factory(Category::class)->create();
+
+        $res = $this->json('GET', route('queryParams.category.show', [
+                'category' => $category->id,
+                'locale' => 'nl',
+            ]))
+            ->assertStatus(200)
+            ->json();
+
+        $this->assertTrue(starts_with($res['data']['name'], 'nl:'));
+
+        $enRes = $this->json('GET', route('queryParams.category.show', [
+                'category' => $category->id,
+                'locale' => 'en',
+            ]))
+            ->assertStatus(200)
+            ->json();
+
+        $this->assertTrue(starts_with($enRes['data']['name'], 'en:'));
+    }
+
+    /** @test */
     public function should_list_books_that_are_in_category()
     {
         $c = factory(Category::class)->create();
@@ -113,5 +137,35 @@ class CategoryControllerTest extends TestCase
                     ],
                 ],
             ]);
+    }
+
+    /** @test */
+    public function should_show_translated_category_localized_dutch()
+    {
+        $category = factory(Category::class)->create();
+
+        $res = $this->json('GET', route('queryParams.category.show', [
+                'category' => $category->id,
+                'locale' => 'nl',
+            ]))
+            ->assertStatus(200)
+            ->json();
+
+        $this->assertTrue(starts_with($res['data']['name'], 'nl:'));
+    }
+
+    /** @test */
+    public function should_show_translated_category_localized_english()
+    {
+        $category = factory(Category::class)->create();
+
+        $res = $this->json('GET', route('queryParams.category.show', [
+                'category' => $category->id,
+                'locale' => 'en',
+            ]))
+            ->assertStatus(200)
+            ->json();
+
+        $this->assertTrue(starts_with($res['data']['name'], 'en:'));
     }
 }

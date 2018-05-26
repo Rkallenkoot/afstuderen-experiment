@@ -20,6 +20,8 @@ class Category extends Model
         'image_url',
     ];
 
+    protected $with = ['translations'];
+
     public function parent()
     {
         return $this->belongsTo(Category::class, 'parent_id');

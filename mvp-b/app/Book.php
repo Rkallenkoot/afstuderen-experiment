@@ -17,6 +17,8 @@ class Book extends Model
         'description',
     ];
 
+    protected $with = ['translations'];
+
     protected $fillable = [
         'isbn',
         'eISBN',

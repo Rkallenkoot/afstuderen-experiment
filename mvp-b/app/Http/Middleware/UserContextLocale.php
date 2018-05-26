@@ -16,8 +16,8 @@ class UserContextLocale
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::check()) {
-            app()->setLocale(Auth::user()->locale);
+        if (Auth::guard('api')->check()) {
+            app()->setLocale(Auth::guard('api')->user()->locale);
         }
 
         return $next($request);

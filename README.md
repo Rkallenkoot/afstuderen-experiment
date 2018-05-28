@@ -13,8 +13,9 @@ https://github.com/dimsav/laravel-translatable
 
 
 ## Database benchmarks
-https://dev.mysql.com/doc/refman/5.5/en/custom-benchmarks.html
-
-https://dev.mysql.com/doc/refman/5.5/en/mysqlslap.html
+https://github.com/akopytov/sysbench
 
 https://tools.ietf.org/html/rfc7231#section-3.1.3.2
+
+
+`sysbench --db-driver=mysql --mysql-db=db --mysql-user=root --mysql-host=127.0.0.1 --mysql-port=3306 --mysql-password=pass --test=test.lua --threads=8 --time=60 run > results.txt`
